@@ -40,7 +40,9 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
-          folder: frontend/dist
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: frontend/dist
       
       - name: Update frontend url
         id: update-frontend-url
