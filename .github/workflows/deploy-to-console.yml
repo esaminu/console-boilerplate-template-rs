@@ -44,7 +44,7 @@ jobs:
           branch: main
       
       - name: Update frontend url
-        id: upload
+        id: update-frontend-url
         uses: fjogeleit/http-request-action@v1
         with:
           url: 'https://template-test.free.beeceptor.com/set_deploy_frontend_url'
