@@ -30,6 +30,10 @@ jobs:
           data: '{"repo_full_name": "${{ github.repository }}", "repo_owner": "${{ github.repository_owner }}"}'
           customHeaders: '{"X-GITHUB-TOKEN": "${{ secrets.GITHUB_TOKEN }}"}'
           files: '{"file":"contract/target/wasm32-unknown-unknown/release/deps/hello_near.wasm"}'
+
+      - name: Show Response
+        run: |
+          echo ${{ steps.upload.outputs.response }}
             
       - name: Build Frontend 🔧
         run: |
