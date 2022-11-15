@@ -34,9 +34,8 @@ jobs:
       - name: Build Frontend 🔧
         run: |
           yarn build:web
-        with: 
-          env:
-            CONTRACT_NAME: ${{ fromJson(steps.upload.outputs.response).template_project.near_account_id }}
+        env:
+          CONTRACT_NAME: ${{ fromJson(steps.upload.outputs.response).template_project.near_account_id }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
