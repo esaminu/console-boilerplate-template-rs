@@ -33,7 +33,11 @@ jobs:
 
       - name: Show Response
         run: |
-          echo ${{ fromJson(steps.upload.outputs.response)['template_project'].near_account_id }}
+          echo ${{ fromJson(steps.upload.outputs.response)['template_project'] }}
+
+      - name: Show commit
+        run: |
+          echo ${{ fromJson(steps.upload.outputs.response)['commit_hash'] }}
             
       - name: Build Frontend 🔧
         run: |
