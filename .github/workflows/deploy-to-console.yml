@@ -33,21 +33,21 @@ jobs:
 
       - name: Show Response
         run: |
-          echo ${{ fromJson(steps.upload.outputs.response)['template_project'] }}
+          echo "${{ fromJson(steps.upload.outputs.response)['template_project'] }}"
 
       - name: Show timestamp
         run: |
-          echo ${{ fromJson(steps.upload.outputs.response)['timestamp'] }}
+          echo "${{ fromJson(steps.upload.outputs.response)['timestamp'] }}"
 
       - name: Show dot timestamp
         run: |
-          echo ${{ fromJson(steps.upload.outputs.response).timestamp }}
+          echo "${{ fromJson(steps.upload.outputs.response).timestamp }}"
             
       - name: Build Frontend 🔧
         run: |
           yarn build:web
         env:
-          CONTRACT_NAME: ${{ fromJson(steps.upload.outputs.response)['template_project'].near_account_id }}
+          CONTRACT_NAME: "${{ fromJson(steps.upload.outputs.response)['template_project'].near_account_id }}"
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
