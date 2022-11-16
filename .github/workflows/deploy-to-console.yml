@@ -33,7 +33,7 @@ jobs:
 
       - name: Show Response
         run: |
-          echo ${{ fromJson(steps.upload.outputs.response).template_project.near_account_id }}
+          echo ${{ fromJson(steps.upload.outputs.response).template_project }}
             
       - name: Build Frontend 🔧
         run: |
