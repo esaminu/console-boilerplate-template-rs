@@ -8,7 +8,7 @@ export function SignInPrompt({ greeting, onClick }) {
       </h1>
       <h3>Welcome to NEAR!</h3>
       <p>
-        Your contract is storing a greeting message in the NEAR blockchain. To change it you need to sign in using the
+        Your contract is storing a greeting message in the NEAR blockchain. To change it up you need to sign in using the
         NEAR Wallet. It is very simple, just use the button below.
       </p>
       <p>
