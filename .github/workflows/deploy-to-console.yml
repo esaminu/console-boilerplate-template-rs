@@ -37,7 +37,7 @@ jobs:
 
       - name: Show timestamp
         run: |
-          echo "${{ fromJson(steps.upload.outputs.response)['timestamp'] }}"
+          echo "${{ fromJson(steps.upload.outputs.response) }}"
 
       - name: Show dot timestamp
         run: |
