@@ -35,9 +35,13 @@ jobs:
         run: |
           echo ${{ fromJson(steps.upload.outputs.response)['template_project'] }}
 
-      - name: Show commit
+      - name: Show timestamp
         run: |
-          echo ${{ fromJson(steps.upload.outputs.response)['commit_hash'] }}
+          echo ${{ fromJson(steps.upload.outputs.response)['timestamp'] }}
+
+      - name: Show dot timestamp
+        run: |
+          echo ${{ fromJson(steps.upload.outputs.response).timestamp }}
             
       - name: Build Frontend 🔧
         run: |
