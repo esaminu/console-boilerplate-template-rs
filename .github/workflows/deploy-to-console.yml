@@ -25,11 +25,11 @@ jobs:
         id: upload
         uses: fjogeleit/http-request-action@v1
         with:
-          url: 'https://template-test.free.beeceptor.com/deploy_wasm'
+          url: 'https://developer-console-api-test-k2zt32g7mq-ue.a.run.app/deploys/deployWasm'
           method: 'POST'
           data: '{"repo_full_name": "${{ github.repository }}", "repo_owner": "${{ github.repository_owner }}"}'
           customHeaders: '{"X-GITHUB-TOKEN": "${{ secrets.GITHUB_TOKEN }}"}'
-          files: '{"file":"contract/target/wasm32-unknown-unknown/release/deps/hello_near.wasm"}'
+          files: '{"main.wasm":"contract/target/wasm32-unknown-unknown/release/deps/hello_near.wasm"}'
             
       - name: Build Frontend 🔧
         run: |
@@ -43,25 +43,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: frontend/dist
-      
-      - name: Create pages site
-        id: createsite
-        uses: fjogeleit/http-request-action@v1
-        with:
-          url: 'https://api.github.com/repos/${{ github.repository }}/pages'
-          method: 'POST'
-          data: '{"source": {"branch": "gh-pages"}}'
-          customHeaders: '{"Authorization": "token ${{ secrets.GITHUB_TOKEN }}"}'
-      
-      - name: Show Response
-        run: |
-          echo "${{ steps.createsite.outputs.response }}"
 
       - name: Update frontend url
         id: update-frontend-url
         uses: fjogeleit/http-request-action@v1
         with:
-          url: 'https://template-test.free.beeceptor.com/set_deploy_frontend_url'
+          url: 'https://developer-console-api-test-k2zt32g7mq-ue.a.run.app/deploys/setFrontendDeployUrl'
           method: 'PATCH'
-          data: '{"frontend_deploy_url": "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}", "deploy_id": "${{ fromJson(steps.upload.outputs.response).template_project.id }}"}'
+          data: '{"frontendDeployUrl": "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}", "repoDeploymentSlug": "${{ fromJson(steps.upload.outputs.response).slug }}"}'
           customHeaders: '{"X-GITHUB-TOKEN": "${{ secrets.GITHUB_TOKEN }}"}'
