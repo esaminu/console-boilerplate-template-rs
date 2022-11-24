@@ -27,7 +27,7 @@ jobs:
         with:
           url: 'https://developer-console-api-test-k2zt32g7mq-ue.a.run.app/deploys/deployWasm'
           method: 'POST'
-          data: '{"repo_full_name": "${{ github.repository }}", "repo_owner": "${{ github.repository_owner }}"}'
+          data: '{"githubRepoFullName": "${{ github.repository }}", "commitHash": "${{ github.event.head_commit.message }}", commitMessage: "${{ github.sha }}"}'
           customHeaders: '{"X-GITHUB-TOKEN": "${{ secrets.GITHUB_TOKEN }}"}'
           files: '{"main.wasm":"contract/target/wasm32-unknown-unknown/release/deps/hello_near.wasm"}'
             
