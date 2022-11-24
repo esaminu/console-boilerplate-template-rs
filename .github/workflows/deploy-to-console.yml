@@ -15,15 +15,17 @@ jobs:
       
       - name: Test gh api
         id: test-gh
-        uses: fjogeleit/http-request-action@v1
-        with:
-          url: "https://api.github.com/repos/${{ github.repository }}"
-          method: 'GET'
-          customHeaders: '{"Authorization": "token ${{ secrets.GITHUB_TOKEN }}"}'
-
-      - name: Show Response
         run: |
-          echo "${{ steps.test-gh.outputs.response }}"
+          curl -v "https://api.github.com/repos/${{ github.repository }}" > /dev/null
+        # uses: fjogeleit/http-request-action@v1
+        # with:
+        #   url: "https://api.github.com/repos/${{ github.repository }}"
+        #   method: 'GET'
+        #   customHeaders: '{"Authorization": "token ${{ secrets.GITHUB_TOKEN }}"}'
+
+      # - name: Show Response
+      #   run: |
+      #     echo "${{ steps.test-gh.outputs.response }}"
 
       - name: Install 🔧
         run: |
