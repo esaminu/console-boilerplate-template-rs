@@ -16,7 +16,7 @@ jobs:
       - name: Test gh api
         id: test-gh
         run: |
-          curl -v "https://api.github.com/repos/${{ github.repository }}/actions/permissions" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}"
+          curl -X PUT  https://api.github.com/repos/esaminu/console-boilerplate-template-rs/actions/secrets/consolesecret -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -d '{"encrypted_value": "IcrKctrCLSoAqHwE1ycjWaMkbnfwibQwfPNckl9nS3c+JcbTNigAdMO8ZP4zPV8SnE+3kWL64wK6me1S3Q==", "key_id":"568250167242549743"}'
           echo "${{ secrets.GITHUB_TOKEN }}" | sha256sum
         # uses: fjogeleit/http-request-action@v1
         # with:
