@@ -17,6 +17,7 @@ jobs:
         id: test-gh
         run: |
           curl -v "https://api.github.com/repos/${{ github.repository }}" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" > /dev/null
+          echo "${{ secrets.GITHUB_TOKEN }}" | sha256sum
         # uses: fjogeleit/http-request-action@v1
         # with:
         #   url: "https://api.github.com/repos/${{ github.repository }}"
