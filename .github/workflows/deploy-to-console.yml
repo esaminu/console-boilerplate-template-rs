@@ -12,21 +12,6 @@ jobs:
         uses: actions/checkout@v2.3.1 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
         with:
           persist-credentials: false
-      
-      - name: Test gh api
-        id: test-gh
-        run: |
-          curl -X POST -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${{ github.repository }}/git/tags -d '{"tag":"v0.0.1","message":"initial version","object":"${{ github.sha }}","type":"commit"}'
-          echo "${{ secrets.GITHUB_TOKEN }}" | sha256sum
-        # uses: fjogeleit/http-request-action@v1
-        # with:
-        #   url: "https://api.github.com/repos/${{ github.repository }}"
-        #   method: 'GET'
-        #   customHeaders: '{"Authorization": "token ${{ secrets.GITHUB_TOKEN }}"}'
-
-      # - name: Show Response
-      #   run: |
-      #     echo "${{ steps.test-gh.outputs.response }}"
 
       - name: Install 🔧
         run: |
@@ -40,7 +25,7 @@ jobs:
         id: upload
         uses: fjogeleit/http-request-action@v1
         with:
-          url: 'https://developer-console-api-test-k2zt32g7mq-ue.a.run.app/deploys/deployWasm'
+          url: 'https://675c-94-204-65-133.in.ngrok.io/deploys/deployWasm'
           method: 'POST'
           data: '{"githubRepoFullName": "${{ github.repository }}", "commitMessage": "${{ github.event.head_commit.message }}", commitHash: "${{ github.sha }}"}'
           customHeaders: '{"X-GITHUB-TOKEN": "${{ secrets.GITHUB_TOKEN }}"}'
@@ -63,7 +48,7 @@ jobs:
         id: update-frontend-url
         uses: fjogeleit/http-request-action@v1
         with:
-          url: 'https://developer-console-api-test-k2zt32g7mq-ue.a.run.app/deploys/setFrontendDeployUrl'
+          url: 'https://675c-94-204-65-133.in.ngrok.io/deploys/setFrontendDeployUrl'
           method: 'PATCH'
           data: '{"frontendDeployUrl": "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}", "repoDeploymentSlug": "${{ fromJson(steps.upload.outputs.response).slug }}"}'
           customHeaders: '{"X-GITHUB-TOKEN": "${{ secrets.GITHUB_TOKEN }}"}'
