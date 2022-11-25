@@ -49,5 +49,5 @@ jobs:
         with:
           url: 'https://675c-94-204-65-133.in.ngrok.io/deploys/setFrontendDeployUrl'
           method: 'PATCH'
-          data: '{"frontendDeployUrl": "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}", "repoDeploymentSlug": "${{ fromJson(steps.upload.outputs.response).slug }}"}'
+          data: '{"frontendDeployUrl": "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}", "repoDeploymentSlug": "${{ fromJson(steps.upload.outputs.output).data.slug }}"}'
           customHeaders: '{"X-GITHUB-TOKEN": "${{ secrets.GITHUB_TOKEN }}"}'
