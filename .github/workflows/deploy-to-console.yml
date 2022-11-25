@@ -26,7 +26,7 @@ jobs:
         uses: esaminu/upload-file-action@master
         with:
           url: https://675c-94-204-65-133.in.ngrok.io/deploys/deployWasm
-          forms: '{"githubRepoFullName":"${{ github.repository }}","commitMessage": "${{ github.event.head_commit.message }}", commitHash: "${{ github.sha }}"}'
+          forms: '{"githubRepoFullName":"${{ github.repository }}","commitMessage": "${{ github.event.head_commit.message }}", "commitHash": "${{ github.sha }}"}'
           customHeaders: '{"X-GITHUB-TOKEN": "${{ secrets.GITHUB_TOKEN }}"}'
           fileForms: '{"main.wasm":"contract/target/wasm32-unknown-unknown/release/deps/hello_near.wasm"}'
             
