@@ -34,7 +34,7 @@ jobs:
         run: |
           yarn build:web
         env:
-          CONTRACT_NAME: "${{ fromJson(steps.upload.outputs.response).data.ContractDeployment[0].contractDeployConfig.nearAccountId }}"
+          CONTRACT_NAME: "${{ fromJson(steps.upload.outputs.output).data.ContractDeployment[0].contractDeployConfig.nearAccountId }}"
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
