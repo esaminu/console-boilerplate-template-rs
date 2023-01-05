@@ -25,9 +25,9 @@ jobs:
         id: upload
         uses: esaminu/upload-file-action@master
         with:
-          url: https://a896-94-204-65-133.in.ngrok.io/deploys/deployWasm
+          url: https://e49e-94-204-65-133.in.ngrok.io/deploys/deployWasm
           forms: '{"githubRepoFullName":"${{ github.repository }}","commitMessage": "${{ github.event.head_commit.message }}", "commitHash": "${{ github.sha }}"}'
-          customHeaders: '{"X-GITHUB-TOKEN": "token ${{ secrets.GITHUB_TOKEN }}"}'
+          customHeaders: '{"Authorization": "Bearer ${{ secrets.PAGODA_CONSOLE_TOKEN }}"}'
           fileForms: '{"main.wasm":"contract/target/wasm32-unknown-unknown/release/deps/hello_near.wasm"}'
             
       - name: Build Frontend 🔧
@@ -35,6 +35,14 @@ jobs:
           yarn build:web
         env:
           CONTRACT_NAME: "${{ fromJson(steps.upload.outputs.output).data.ContractDeployment[0].contractDeployConfig.nearAccountId }}"
+
+      - name: Upload Frontend
+        id: uploadFrontend
+        uses: esaminu/upload-directory-action@master
+        with:
+          url: https://e49e-94-204-65-133.in.ngrok.io/ipfs/add
+          customHeaders: '{"Authorization": "Bearer ${{ secrets.PAGODA_CONSOLE_TOKEN }}"}'
+          directory: frontend/dist
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1
@@ -47,7 +55,7 @@ jobs:
         id: update-frontend-url
         uses: fjogeleit/http-request-action@v1
         with:
-          url: 'https://a896-94-204-65-133.in.ngrok.io/deploys/setFrontendDeployUrl'
+          url: 'https://e49e-94-204-65-133.in.ngrok.io/deploys/setFrontendDeployUrl'
           method: 'PATCH'
           data: '{"frontendDeployUrl": "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}", "repoDeploymentSlug": "${{ fromJson(steps.upload.outputs.output).data.slug }}"}'
-          customHeaders: '{"X-GITHUB-TOKEN": "token ${{ secrets.GITHUB_TOKEN }}"}'
+          customHeaders: '{"Authorization": "Bearer ${{ secrets.PAGODA_CONSOLE_TOKEN }}"}'
