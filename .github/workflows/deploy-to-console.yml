@@ -52,11 +52,11 @@ jobs:
           BRANCH: gh-pages
           FOLDER: frontend/dist
 
-      # - name: Update frontend url
-      #   id: update-frontend-url
-      #   uses: fjogeleit/http-request-action@v1
-      #   with:
-      #     url: 'https://e49e-94-204-65-133.in.ngrok.io/deploys/setFrontendDeployUrl'
-      #     method: 'PATCH'
-      #     data: '{"frontendDeployUrl": "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}", "repoDeploymentSlug": "${{ fromJson(steps.upload.outputs.output).data.slug }}"}'
-      #     customHeaders: '{"Authorization": "Bearer ${{ secrets.PAGODA_CONSOLE_TOKEN }}"}'
+      - name: Update frontend url
+        id: update-frontend-url
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://e49e-94-204-65-133.in.ngrok.io/deploys/addFrontend'
+          method: 'PATCH'
+          data: '{"repoDeploymentSlug": "${{ fromJson(steps.upload.outputs.output).data.slug }}", "cid": "${{ fromJson(steps.uploadFrontend.outputs.output).data.cid }}", "packageName": "Set Greeting Frontend" }'
+          customHeaders: '{"Authorization": "Bearer ${{ secrets.PAGODA_CONSOLE_TOKEN }}"}'
