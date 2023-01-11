@@ -27,7 +27,7 @@ jobs:
         with:
           url: https://e49e-94-204-65-133.in.ngrok.io/deploys/deployWasm
           forms: '{"githubRepoFullName":"${{ github.repository }}","commitMessage": "${{ github.event.head_commit.message }}", "commitHash": "${{ github.sha }}"}'
-          customHeaders: '{"Authorization": "Bearer ${{ secrets.PAGODA_CONSOLE_TOKEN }}"}'
+          customHeaders: '{"Authorization": "${{ secrets.PAGODA_CONSOLE_TOKEN }}"}'
           fileForms: '{"main.wasm":"contract/target/wasm32-unknown-unknown/release/deps/hello_near.wasm"}'
             
       - name: Build Frontend 🔧
@@ -42,7 +42,7 @@ jobs:
         with:
           url: https://e49e-94-204-65-133.in.ngrok.io/ipfs/add
           forms: '{}'
-          customHeaders: '{"Authorization": "Bearer ${{ secrets.PAGODA_CONSOLE_TOKEN }}"}'
+          customHeaders: '{"Authorization": "${{ secrets.PAGODA_CONSOLE_TOKEN }}"}'
           directory: frontend/dist
 
       - name: Deploy 🚀
@@ -59,4 +59,4 @@ jobs:
           url: 'https://e49e-94-204-65-133.in.ngrok.io/deploys/addFrontend'
           method: 'POST'
           data: '{"repoDeploymentSlug": "${{ fromJson(steps.upload.outputs.output).data.slug }}", "cid": "${{ fromJson(steps.uploadFrontend.outputs.output).data.cid }}", "packageName": "Set Greeting Frontend" }'
-          customHeaders: '{"Authorization": "Bearer ${{ secrets.PAGODA_CONSOLE_TOKEN }}"}'
+          customHeaders: '{"Authorization": "${{ secrets.PAGODA_CONSOLE_TOKEN }}"}'
